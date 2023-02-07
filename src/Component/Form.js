@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import Axios
- from 'axios';
-
+import ThankYou from './ThankYou';
 
 const Form = () => {
   const [inputData, setInputData] = useState({
@@ -33,15 +31,15 @@ const Form = () => {
         gender: inputData.gender
         
     };
-
-    Axios.post('http://localhost:8081/form/registration', {
+    console.log(data)
+    fetch('http://localhost:8081/form/registration', {
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        mode: 'cors',
-
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    }) .then((response) => response.json())
+    })
+      .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
       })
@@ -49,10 +47,12 @@ const Form = () => {
         console.error('Error:', error);
       });
 
+      <ThankYou />
+ 
   };
 
   return ( 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="regform">
       <table>
        <tr>
        <th>
@@ -142,7 +142,9 @@ const Form = () => {
       </td>
     </tr>  
       </table>
-    <button type="submit" onClick={() =>alert("Thank You For Registration")}>Add Data</button>
+    <tr>
+        <td><button type="submit"  >Add Data</button></td>
+    </tr> 
     </form>
   );
 };
